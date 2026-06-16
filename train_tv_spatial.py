@@ -267,6 +267,9 @@ def main(args):
     print(f"✓ 光谱曲线及数据已保存至: {spec_dir}")
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description='Denoising and Fusion')
+    
     parser.add_argument('--snr_hsi', type=float, default=30.0, help='SNR parameter for HSI (default: 30)')
     parser.add_argument('--snr_msi', type=float, default=35.0, help='SNR parameter for MSI (default: 35)')
 
@@ -276,7 +279,9 @@ if __name__ == '__main__':
     parser.add_argument('--r_key', type=str, default='R', help='Key of the SRF data')
     parser.add_argument('--scale', type=int, default=4, help='Downsampling scale factor')
 
-    parser.add_argument('--snr', type=int, default=40, help='SNR parameter for adding noise (Disabled in code)')
+    parser.add_argument('--snr_hsi', type=float, default=30.0, help='SNR parameter for HSI (default: 30)')
+    parser.add_argument('--snr_msi', type=float, default=35.0, help='SNR parameter for MSI (default: 35)')
+    
     parser.add_argument('--lr', type=float, default=3e-5, metavar='LR', help='learning rate')
     parser.add_argument('--lr_decay', action='store_true', help='cosine learning rate decay')
     parser.add_argument('--wd', type=float, default=0., metavar='WD', help='weight decay')
