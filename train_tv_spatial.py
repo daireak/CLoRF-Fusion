@@ -261,7 +261,8 @@ def main(args):
     print(f"✓ 光谱曲线及数据已保存至: {spec_dir}")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Denoising and Fusion')
+    parser.add_argument('--snr_hsi', type=float, default=30.0, help='SNR parameter for HSI (default: 30)')
+    parser.add_argument('--snr_msi', type=float, default=35.0, help='SNR parameter for MSI (default: 35)')
 
     parser.add_argument('--data_path', type=str, required=True, help='HSI data .mat file path')
     parser.add_argument('--r_path', type=str, required=True, help='SRF data .mat file path')
