@@ -25,7 +25,7 @@ echo "=========================================================="
 
 # 【1】PU 数据集
 # 设置: PU数据, 缩放4倍, 秩(k)=48
-python train_tv_spatial.py --data_path /home/dengxiaogui/Data/PU.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key img --r_key R --scale 4 --inr siren --k 48 --lam 1.0 --alpha 0.01 --log_dir ./runs/PU_Experiment --num_iters 30000
+python train_tv_spatial.py --data_path /home/dengxiaogui/Data/PU.mat --r_path /home/dengxiaogui/Data/R.mat --mat_key img --r_key R --scale 4 --inr siren --k 48 --lam 1.0 --alpha 0.01 --log_dir ./runs/PU_Experiment --num_iters 30000 --snr_hsi 30 --snr_msi 35
 
 # 【2】WDC 数据集
 # 设置: WDC数据, 缩放4倍, 秩(k)=48
