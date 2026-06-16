@@ -142,14 +142,20 @@ def main(args):
     X_torch = torch.from_numpy(X).to(device, dtype=torch.float32)
     R_torch = torch.from_numpy(R).to(device, dtype=torch.float32)
     
-    # [无噪音观测数据构造]
+   # [带噪音观测数据构造]
+    # 1. 构造 MSI 并加入 35 SNR 噪音
     MSI = hwc2chw(hsi2msi(X_torch, R_torch)) 
-    msi = MSI.to(device)
+    msi_clean = MSI.to(device)
+    msi, sigma_m = add_noise(msi_clean, SNRdb=args.snr_msi) 
     
+    # 2. 构造 HSI 并加入 30 SNR 噪音
     psf = get_hs_psf(N=5, n_channels=c, gaussian=True, sigma=1.)
     x = hwc2chw(X_torch)
     hsi_LR = Ax(x, psf, ratio=factor)
-    hsi = hsi_LR.to(device)
+    hsi_clean = hsi_LR.to(device)
+    hsi, sigma_h = add_noise(hsi_clean, SNRdb=args.snr_hsi) 
+    
+    print(f"[!] 观测数据已添加噪音: HSI SNR={args.snr_hsi}dB, MSI SNR={args.snr_msi}dB")
 
     # 4. 构建 INR 模型
     spatial_params = {'nonlin': args.inr, 'in_features': 2, 'out_features': args.k,
